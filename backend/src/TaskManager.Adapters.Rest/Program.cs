@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
-using TaskManager.Adapters.Rest.Configuration;
 using TaskManager.Adapters.Persistence;
 using TaskManager.Adapters.Rest;
+using TaskManager.Adapters.Rest.Configuration;
 using TaskManager.Application;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +16,9 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 app.UseStatusCodePages();
+
+app.UseHeadAsGet();
+app.UseRouting();
 
 if (app.Environment.IsDevelopment())
 {
