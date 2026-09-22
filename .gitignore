@@ -1,0 +1,62 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# editores
+.vs/
+.vscode/
+.idea/
+*.swp
+
+# .NET
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userprefs
+project.lock.json
+artifacts/
+TestResults/
+*.trx
+*.coverage
+coverage*.json
+coverage*.xml
+appsettings.Production.json
+appsettings.Local.json
+*.pfx
+
+# node / react native
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.metro-health-check*
+.expo/
+
+# android
+mobile/android/.gradle/
+mobile/android/build/
+mobile/android/app/build/
+mobile/android/local.properties
+*.keystore
+!debug.keystore
+*.apk
+*.aab
+
+# ios
+mobile/ios/Pods/
+mobile/ios/build/
+mobile/ios/*.xcworkspace/xcuserdata/
+mobile/ios/*.xcodeproj/xcuserdata/
+mobile/ios/.xcode.env.local
+DerivedData/
+
+# entorno
+.env
+.env.local
+!.env.example
+
+# docker
+.docker-data/
