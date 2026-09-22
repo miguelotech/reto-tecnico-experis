@@ -1,23 +1,31 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Scalar.AspNetCore;
+using TaskManager.Adapters.Rest.Configuration;
+using TaskManager.Adapters.Persistence;
+using TaskManager.Adapters.Rest;
+using TaskManager.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services
+    .AddApplication()
+    .AddPersistence(builder.Configuration)
+    .AddRestAdapter(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseExceptionHandler();
+app.UseStatusCodePages();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference("/swagger", options => options.WithTitle("TaskManager API"));
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseCors(CorsPolicies.Mobile);
 
 app.MapControllers();
+app.MapHealthChecks("/health", new HealthCheckOptions { ResponseWriter = HealthResponseWriter.WriteAsync });
 
 app.Run();
