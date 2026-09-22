@@ -8,5 +8,10 @@ type StatusBadgeProps = {
 };
 
 export const StatusBadge = ({ status }: StatusBadgeProps) => (
-  <Badge label={status.name} tone={statusTone(status.code)} accessibilityLabel={`Estado ${status.name}`} />
+  <Badge
+    label={status.name}
+    tone={statusTone(status.code)}
+    variant="outline"
+    accessibilityLabel={`Estado ${status.name}`}
+  />
 );

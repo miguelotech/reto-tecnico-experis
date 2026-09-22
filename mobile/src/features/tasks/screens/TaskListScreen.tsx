@@ -1,37 +1,15 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { RootStackParamList } from '../../../app/navigation/types';
 import { EmptyState, ErrorState, Loader, Screen } from '../../../shared/components';
-import { colors, radius, spacing, typography } from '../../../shared/theme';
-import { ActiveFiltersBar, TaskCard } from '../components';
+import { colors, spacing } from '../../../shared/theme';
+import { ListHero, TaskCard } from '../components';
 import { useCatalogs } from '../hooks/useCatalogs';
 import { useTasks } from '../hooks/useTasks';
 import { countActiveFilters, EMPTY_FILTERS, TaskFilters, TaskSummary } from '../types/task.types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskList'>;
-
-type FiltersHeaderButtonProps = {
-  activeCount: number;
-  onPress: () => void;
-};
-
-const FiltersHeaderButton = ({ activeCount, onPress }: FiltersHeaderButtonProps) => (
-  <Pressable
-    testID="open-filters-button"
-    accessibilityRole="button"
-    accessibilityLabel={activeCount > 0 ? `Filtros, ${activeCount} activos` : 'Filtros'}
-    onPress={onPress}
-    style={({ pressed }) => [styles.headerButton, pressed ? styles.headerButtonPressed : null]}
-  >
-    <Text style={styles.headerButtonLabel}>Filtros</Text>
-    {activeCount > 0 ? (
-      <View style={styles.headerBadge}>
-        <Text style={styles.headerBadgeLabel}>{activeCount}</Text>
-      </View>
-    ) : null}
-  </Pressable>
-);
 
 const TaskSeparator = () => <View style={styles.separator} />;
 
@@ -48,17 +26,6 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
     },
     [navigation],
   );
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <FiltersHeaderButton
-          activeCount={activeCount}
-          onPress={() => navigation.navigate('TaskFilter', { filters })}
-        />
-      ),
-    });
-  }, [activeCount, filters, navigation]);
 
   const openDetail = useCallback(
     (task: TaskSummary) => navigation.navigate('TaskDetail', { taskId: task.id }),
@@ -91,11 +58,13 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
         keyExtractor={task => task.id}
         renderItem={({ item }) => <TaskCard task={item} onPress={openDetail} />}
         ListHeaderComponent={
-          <ActiveFiltersBar
+          <ListHero
+            count={tasks.length}
             filters={filters}
             statuses={statuses}
             priorities={priorities}
-            resultCount={tasks.length}
+            activeCount={activeCount}
+            onOpenFilters={() => navigation.navigate('TaskFilter', { filters })}
             onRemoveStatus={() => applyFilters({ ...filters, status: null })}
             onRemovePriority={() => applyFilters({ ...filters, priority: null })}
           />
@@ -116,9 +85,15 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
           )
         }
         ItemSeparatorComponent={TaskSeparator}
-        contentContainerStyle={[styles.content, tasks.length === 0 ? styles.contentEmpty : null]}
+        contentContainerStyle={styles.content}
         refreshControl={
-          <RefreshControl refreshing={isRefetching} onRefresh={() => { refetch(); }} tintColor={colors.primary} />
+          <RefreshControl
+            refreshing={isRefetching}
+            onRefresh={() => {
+              refetch();
+            }}
+            tintColor={colors.ink}
+          />
         }
       />
     </Screen>
@@ -128,42 +103,9 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   content: {
     padding: spacing.lg,
-    paddingTop: spacing.lg,
-    paddingBottom: spacing.xxl,
-  },
-  contentEmpty: {
-    flexGrow: 1,
+    paddingBottom: spacing.xxxl,
   },
   separator: {
     height: spacing.md,
-  },
-  headerButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs + 2,
-    paddingVertical: spacing.xs + 2,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.pill,
-    backgroundColor: colors.primarySoft,
-  },
-  headerButtonPressed: {
-    opacity: 0.7,
-  },
-  headerButtonLabel: {
-    ...typography.captionStrong,
-    color: colors.primaryDark,
-  },
-  headerBadge: {
-    minWidth: 18,
-    height: 18,
-    paddingHorizontal: spacing.xs,
-    borderRadius: radius.pill,
-    backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerBadgeLabel: {
-    ...typography.overline,
-    color: colors.onPrimary,
   },
 });

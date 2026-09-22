@@ -32,7 +32,7 @@ export const RootNavigator = () => (
         contentStyle: { backgroundColor: colors.background },
       }}
     >
-      <Stack.Screen name="TaskList" component={TaskListScreen} options={{ title: 'Mis tareas' }} />
+      <Stack.Screen name="TaskList" component={TaskListScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="TaskFilter"
         component={TaskFilterScreen}

@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../../../app/navigation/types';
 import { Button, Chip, ErrorState, Loader, Screen } from '../../../shared/components';
-import { colors, elevation, radius, spacing, typography } from '../../../shared/theme';
+import { colors, elevation, priorityTone, radius, spacing, statusTone, typography, Tone } from '../../../shared/theme';
 import { useCatalogs } from '../hooks/useCatalogs';
 import { CatalogItem, EMPTY_FILTERS, TaskFilters } from '../types/task.types';
 
@@ -14,10 +14,11 @@ type FilterGroupProps = {
   options: CatalogItem[];
   selected: string | null;
   onSelect: (code: string | null) => void;
+  toneFor: (code: string) => Tone;
   testIDPrefix: string;
 };
 
-const FilterGroup = ({ title, options, selected, onSelect, testIDPrefix }: FilterGroupProps) => (
+const FilterGroup = ({ title, options, selected, onSelect, toneFor, testIDPrefix }: FilterGroupProps) => (
   <View style={styles.group}>
     <Text style={styles.groupTitle}>{title}</Text>
     <View style={styles.card}>
@@ -32,6 +33,7 @@ const FilterGroup = ({ title, options, selected, onSelect, testIDPrefix }: Filte
           key={option.code}
           testID={`${testIDPrefix}-${option.code}`}
           label={option.name}
+          tone={toneFor(option.code)}
           selected={selected === option.code}
           onPress={() => onSelect(option.code)}
         />
@@ -64,13 +66,14 @@ export const TaskFilterScreen = ({ navigation, route }: Props) => {
     <Screen edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.intro}>
-          Selecciona una opción por criterio. Se combinan entre sí para acotar el listado.
+          Elige una opción por criterio. Se combinan entre sí para acotar el listado.
         </Text>
         <FilterGroup
           title="Estado"
           options={statuses}
           selected={draft.status}
           onSelect={status => setDraft(current => ({ ...current, status }))}
+          toneFor={statusTone}
           testIDPrefix="status"
         />
         <FilterGroup
@@ -78,6 +81,7 @@ export const TaskFilterScreen = ({ navigation, route }: Props) => {
           options={priorities}
           selected={draft.priority}
           onSelect={priority => setDraft(current => ({ ...current, priority }))}
+          toneFor={priorityTone}
           testIDPrefix="priority"
         />
       </ScrollView>

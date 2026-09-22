@@ -11,6 +11,7 @@ export const PriorityBadge = ({ priority }: PriorityBadgeProps) => (
   <Badge
     label={priority.name}
     tone={priorityTone(priority.code)}
+    variant="solid"
     accessibilityLabel={`Prioridad ${priority.name}`}
   />
 );

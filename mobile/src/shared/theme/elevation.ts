@@ -2,17 +2,17 @@ import { ViewStyle } from 'react-native';
 
 export const elevation = {
   card: {
-    shadowColor: '#0E1726',
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 2,
+    shadowColor: '#151B3D',
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 3,
   },
   bar: {
-    shadowColor: '#0E1726',
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: -4 },
-    elevation: 12,
+    shadowColor: '#151B3D',
+    shadowOpacity: 0.1,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: -6 },
+    elevation: 14,
   },
 } satisfies Record<string, ViewStyle>;

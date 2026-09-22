@@ -3,9 +3,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../../../app/navigation/types';
 import { ErrorState, Loader, Screen } from '../../../shared/components';
-import { colors, elevation, radius, spacing, typography } from '../../../shared/theme';
+import { colors, elevation, priorityTone, radius, spacing, typography } from '../../../shared/theme';
 import { formatLongDate } from '../../../shared/utils';
-import { PriorityBadge, StatusBadge } from '../components';
+import { StatusBadge } from '../components';
 import { useTaskDetail } from '../hooks/useTaskDetail';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetail'>;
@@ -53,23 +53,28 @@ export const TaskDetailScreen = ({ route }: Props) => {
     );
   }
 
+  const tone = priorityTone(task.priority.code);
   const dueDate = formatLongDate(task.dueDate);
   const createdAt = formatLongDate(task.createdAt);
 
   return (
     <Screen edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.badges}>
-          <PriorityBadge priority={task.priority} />
-          <StatusBadge status={task.status} />
+        <View style={[styles.hero, { backgroundColor: tone.solid }]}>
+          <Text style={styles.heroLabel}>Prioridad {task.priority.name}</Text>
+          <Text style={styles.heroTitle}>{task.title}</Text>
+          <View style={styles.heroBadge}>
+            <StatusBadge status={task.status} />
+          </View>
         </View>
-        <Text style={styles.title}>{task.title}</Text>
+
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Descripción</Text>
           <Text style={[styles.description, !task.description ? styles.descriptionEmpty : null]}>
             {task.description ?? 'Esta tarea no tiene descripción.'}
           </Text>
         </View>
+
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Datos</Text>
           <MetaRow label="Prioridad" value={task.priority.name} />
@@ -85,24 +90,31 @@ export const TaskDetailScreen = ({ route }: Props) => {
 const styles = StyleSheet.create({
   content: {
     padding: spacing.lg,
-    paddingBottom: spacing.xxl,
+    paddingBottom: spacing.xxxl,
   },
-  badges: {
+  hero: {
+    borderRadius: radius.xl,
+    padding: spacing.xl,
+    marginBottom: spacing.lg,
+  },
+  heroLabel: {
+    ...typography.overline,
+    color: colors.onPrimary,
+    textTransform: 'uppercase',
+    opacity: 0.85,
+  },
+  heroTitle: {
+    ...typography.displaySmall,
+    color: colors.onPrimary,
+    marginTop: spacing.sm,
+  },
+  heroBadge: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
-  title: {
-    ...typography.title,
-    color: colors.textPrimary,
-    marginTop: spacing.md,
-    marginBottom: spacing.xl,
+    marginTop: spacing.lg,
   },
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
     padding: spacing.lg,
     marginBottom: spacing.md,
     ...elevation.card,

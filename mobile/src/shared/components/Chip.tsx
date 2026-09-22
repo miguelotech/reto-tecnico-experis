@@ -21,18 +21,20 @@ export const Chip = ({
   removeAccessibilityLabel,
   testID,
 }: ChipProps) => {
-  const toneStyle = tone
-    ? { backgroundColor: tone.background, borderColor: tone.border }
-    : selected
-    ? { backgroundColor: colors.primary, borderColor: colors.primary }
+  const selectedColor = tone?.solid ?? colors.primary;
+
+  const chipStyle = selected
+    ? { backgroundColor: selectedColor, borderColor: selectedColor }
+    : tone
+    ? { backgroundColor: tone.soft, borderColor: tone.border }
     : { backgroundColor: colors.surface, borderColor: colors.border };
 
-  const labelColor = tone ? tone.text : selected ? colors.onPrimary : colors.textSecondary;
+  const labelColor = selected ? colors.onPrimary : tone ? tone.text : colors.textSecondary;
 
   const content = (
-    <View style={[styles.chip, toneStyle]}>
-      {tone ? <View style={[styles.dot, { backgroundColor: tone.accent }]} /> : null}
-      {selected && !tone ? <Text style={styles.check}>✓</Text> : null}
+    <View style={[styles.chip, chipStyle]}>
+      {!selected && tone ? <View style={[styles.dot, { backgroundColor: tone.solid }]} /> : null}
+      {selected ? <Text style={styles.check}>✓</Text> : null}
       <Text style={[styles.label, { color: labelColor }]} numberOfLines={1}>
         {label}
       </Text>
@@ -71,15 +73,15 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
-    minHeight: 40,
+    minHeight: 42,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md + 2,
     borderRadius: radius.pill,
     borderWidth: 1,
   },
   dot: {
-    width: 6,
-    height: 6,
+    width: 7,
+    height: 7,
     borderRadius: radius.pill,
     marginRight: spacing.xs + 2,
   },
@@ -100,6 +102,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   pressed: {
-    opacity: 0.7,
+    opacity: 0.75,
   },
 });
