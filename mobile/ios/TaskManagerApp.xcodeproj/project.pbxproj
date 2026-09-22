@@ -12,6 +12,9 @@
 		4822767EFB2797E9A9BF1462 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		837033AE9CAD46E8B11CC6F6 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AA30EC0AA824BC5B2A66E98 /* DMSans-Regular.ttf */; };
+		C4C34608DB3048DDAD8421E7 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE49539EC14165A95A98F6 /* DMSans-Medium.ttf */; };
+		FFE05C63796146D1A37FFA79 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2755D37898D40AC96AF2791 /* DMSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +26,10 @@
 		5709B34CF0A7D63546082F79 /* Pods-TaskManagerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerApp.release.xcconfig"; path = "Target Support Files/Pods-TaskManagerApp/Pods-TaskManagerApp.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-TaskManagerApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TaskManagerApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TaskManagerApp/AppDelegate.swift; sourceTree = "<group>"; };
+		7AA30EC0AA824BC5B2A66E98 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Regular.ttf"; path = "../assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TaskManagerApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8AEE49539EC14165A95A98F6 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Medium.ttf"; path = "../assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; };
+		B2755D37898D40AC96AF2791 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Bold.ttf"; path = "../assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -75,6 +81,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				E21951F421BB459FA8374E52 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -96,6 +103,17 @@
 				5709B34CF0A7D63546082F79 /* Pods-TaskManagerApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E21951F421BB459FA8374E52 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7AA30EC0AA824BC5B2A66E98 /* DMSans-Regular.ttf */,
+				8AEE49539EC14165A95A98F6 /* DMSans-Medium.ttf */,
+				B2755D37898D40AC96AF2791 /* DMSans-Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +179,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				4822767EFB2797E9A9BF1462 /* PrivacyInfo.xcprivacy in Resources */,
+				837033AE9CAD46E8B11CC6F6 /* DMSans-Regular.ttf in Resources */,
+				C4C34608DB3048DDAD8421E7 /* DMSans-Medium.ttf in Resources */,
+				FFE05C63796146D1A37FFA79 /* DMSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

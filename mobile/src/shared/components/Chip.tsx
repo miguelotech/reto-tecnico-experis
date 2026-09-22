@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors, radius, spacing, typography, Tone } from '../theme';
+import { colors, fonts, radius, spacing, typography, Tone } from '../theme';
 
 type ChipProps = {
   label: string;
@@ -97,9 +97,9 @@ const styles = StyleSheet.create({
     marginLeft: spacing.xs + 2,
   },
   removeIcon: {
+    fontFamily: fonts.medium,
     fontSize: 18,
     lineHeight: 20,
-    fontWeight: '600',
   },
   pressed: {
     opacity: 0.75,

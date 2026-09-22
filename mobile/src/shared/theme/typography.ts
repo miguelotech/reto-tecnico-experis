@@ -1,28 +1,26 @@
-import { Platform, TextStyle } from 'react-native';
+import { TextStyle } from 'react-native';
 
-const displayFamily = Platform.select({ ios: 'Georgia', default: 'serif' });
+export const fonts = {
+  regular: 'DMSans-Regular',
+  medium: 'DMSans-Medium',
+  bold: 'DMSans-Bold',
+} as const;
 
 export const typography = {
-  display: {
-    fontFamily: displayFamily,
-    fontSize: 30,
-    lineHeight: 36,
-    fontWeight: '700',
-    letterSpacing: -0.5,
+  display: { fontFamily: fonts.bold, fontSize: 30, lineHeight: 36, letterSpacing: -1 },
+  displaySmall: { fontFamily: fonts.bold, fontSize: 25, lineHeight: 31, letterSpacing: -0.7 },
+  count: {
+    fontFamily: fonts.bold,
+    fontSize: 36,
+    lineHeight: 40,
+    letterSpacing: -1.6,
+    fontVariant: ['tabular-nums'] as const,
   },
-  displaySmall: {
-    fontFamily: displayFamily,
-    fontSize: 24,
-    lineHeight: 30,
-    fontWeight: '700',
-    letterSpacing: -0.3,
-  },
-  count: { fontSize: 34, lineHeight: 38, fontWeight: '800', letterSpacing: -1 },
-  heading: { fontSize: 18, lineHeight: 24, fontWeight: '700', letterSpacing: -0.2 },
-  cardTitle: { fontSize: 16, lineHeight: 22, fontWeight: '600', letterSpacing: -0.2 },
-  body: { fontSize: 15, lineHeight: 22, fontWeight: '400' },
-  bodyStrong: { fontSize: 15, lineHeight: 22, fontWeight: '600' },
-  caption: { fontSize: 13, lineHeight: 18, fontWeight: '500' },
-  captionStrong: { fontSize: 13, lineHeight: 18, fontWeight: '700' },
-  overline: { fontSize: 11, lineHeight: 14, fontWeight: '700', letterSpacing: 1 },
+  heading: { fontFamily: fonts.medium, fontSize: 18, lineHeight: 24, letterSpacing: -0.4 },
+  cardTitle: { fontFamily: fonts.medium, fontSize: 16, lineHeight: 23, letterSpacing: -0.3 },
+  body: { fontFamily: fonts.regular, fontSize: 15, lineHeight: 23, letterSpacing: -0.1 },
+  bodyStrong: { fontFamily: fonts.medium, fontSize: 15, lineHeight: 23, letterSpacing: -0.1 },
+  caption: { fontFamily: fonts.regular, fontSize: 13, lineHeight: 18 },
+  captionStrong: { fontFamily: fonts.medium, fontSize: 13, lineHeight: 18, letterSpacing: -0.1 },
+  overline: { fontFamily: fonts.medium, fontSize: 11, lineHeight: 14, letterSpacing: 1.2 },
 } satisfies Record<string, TextStyle>;

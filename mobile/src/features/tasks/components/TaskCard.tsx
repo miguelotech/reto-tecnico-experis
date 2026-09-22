@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors, elevation, radius, spacing, typography } from '../../../shared/theme';
+import { colors, elevation, fonts, radius, spacing, typography } from '../../../shared/theme';
 import { TaskSummary } from '../types/task.types';
 import { PriorityBadge } from './PriorityBadge';
 import { StatusBadge } from './StatusBadge';
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   chevron: {
-    fontSize: 22,
+    fontFamily: fonts.medium,
+    fontSize: 20,
     lineHeight: 22,
     color: colors.primary,
   },

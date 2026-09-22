@@ -27,6 +27,7 @@ export const RootNavigator = () => (
       screenOptions={{
         headerStyle: { backgroundColor: colors.surface },
         headerTitleStyle: { ...typography.heading, color: colors.textPrimary },
+        headerBackTitleStyle: typography.body,
         headerTintColor: colors.primary,
         headerShadowVisible: false,
         contentStyle: { backgroundColor: colors.background },
