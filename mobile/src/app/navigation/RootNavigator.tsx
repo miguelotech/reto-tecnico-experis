@@ -30,15 +30,12 @@ export const RootNavigator = () => (
         headerBackTitleStyle: typography.body,
         headerTintColor: colors.primary,
         headerShadowVisible: false,
+        headerBackTitle: 'Tareas',
         contentStyle: { backgroundColor: colors.background },
       }}
     >
       <Stack.Screen name="TaskList" component={TaskListScreen} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="TaskFilter"
-        component={TaskFilterScreen}
-        options={{ title: 'Filtros', presentation: 'modal' }}
-      />
+      <Stack.Screen name="TaskFilter" component={TaskFilterScreen} options={{ title: 'Filtros' }} />
       <Stack.Screen name="TaskDetail" component={TaskDetailScreen} options={{ title: 'Detalle' }} />
     </Stack.Navigator>
   </NavigationContainer>
