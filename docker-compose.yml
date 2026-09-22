@@ -1,0 +1,32 @@
+# los scripts de /database corren solos, en orden alfabetico, pero solo la
+# primera vez (cuando el volumen esta vacio). para reaplicarlos:
+#   docker compose down -v && docker compose up -d
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: taskmanager-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: taskmanager
+      POSTGRES_PASSWORD: taskmanager
+      POSTGRES_DB: taskmanager
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+      TZ: UTC
+      PGTZ: UTC
+    ports:
+      # 5433 en el host para no chocar con un postgres ya instalado
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskmanager -d taskmanager"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  postgres-data:
+    name: taskmanager-postgres-data
