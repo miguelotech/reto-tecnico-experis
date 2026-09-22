@@ -95,6 +95,7 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
             filters={filters}
             statuses={statuses}
             priorities={priorities}
+            resultCount={tasks.length}
             onRemoveStatus={() => applyFilters({ ...filters, status: null })}
             onRemovePriority={() => applyFilters({ ...filters, priority: null })}
           />
@@ -127,6 +128,7 @@ export const TaskListScreen = ({ navigation, route }: Props) => {
 const styles = StyleSheet.create({
   content: {
     padding: spacing.lg,
+    paddingTop: spacing.lg,
     paddingBottom: spacing.xxl,
   },
   contentEmpty: {
@@ -138,21 +140,22 @@ const styles = StyleSheet.create({
   headerButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: spacing.xs,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
+    gap: spacing.xs + 2,
+    paddingVertical: spacing.xs + 2,
+    paddingHorizontal: spacing.md,
     borderRadius: radius.pill,
-  },
-  headerButtonPressed: {
     backgroundColor: colors.primarySoft,
   },
+  headerButtonPressed: {
+    opacity: 0.7,
+  },
   headerButtonLabel: {
-    ...typography.bodyStrong,
-    color: colors.primary,
+    ...typography.captionStrong,
+    color: colors.primaryDark,
   },
   headerBadge: {
-    minWidth: 20,
-    height: 20,
+    minWidth: 18,
+    height: 18,
     paddingHorizontal: spacing.xs,
     borderRadius: radius.pill,
     backgroundColor: colors.primary,

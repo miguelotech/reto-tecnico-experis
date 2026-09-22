@@ -2,42 +2,44 @@ export type Tone = {
   background: string;
   border: string;
   text: string;
+  accent: string;
 };
 
 export const colors = {
-  background: '#F4F6FA',
+  background: '#F6F8FC',
   surface: '#FFFFFF',
-  surfaceMuted: '#EEF2F8',
-  border: '#DCE3ED',
-  borderStrong: '#C3CEDD',
-  textPrimary: '#12203A',
-  textSecondary: '#5A6B86',
-  textMuted: '#8B9AB1',
-  primary: '#2F5BEA',
-  primaryDark: '#1E3FB0',
-  primarySoft: '#E6ECFE',
+  surfaceMuted: '#EFF3F9',
+  border: '#E5EAF2',
+  borderStrong: '#CBD5E3',
+  textPrimary: '#0E1726',
+  textSecondary: '#5A6A82',
+  textMuted: '#93A1B5',
+  primary: '#3A57E0',
+  primaryDark: '#2440BE',
+  primarySoft: '#EAEEFD',
   onPrimary: '#FFFFFF',
-  danger: '#C2312B',
-  dangerSoft: '#FBEAE9',
-  overlay: 'rgba(18, 32, 58, 0.45)',
+  danger: '#C43D34',
+  dangerSoft: '#FCECEA',
+  overlay: 'rgba(14, 23, 38, 0.45)',
 } as const;
 
 const neutralTone: Tone = {
   background: colors.surfaceMuted,
   border: colors.border,
   text: colors.textSecondary,
+  accent: colors.textMuted,
 };
 
 const priorityTones: Record<string, Tone> = {
-  HIGH: { background: '#FBE9E7', border: '#F3C2BC', text: '#A32A22' },
-  MEDIUM: { background: '#FDF2DC', border: '#EFD6A2', text: '#8A5A08' },
-  LOW: { background: '#E6F4EC', border: '#B7DEC7', text: '#1F6B42' },
+  HIGH: { background: '#FDEDEB', border: '#F6CFC9', text: '#A33A30', accent: '#DE5246' },
+  MEDIUM: { background: '#FDF5E4', border: '#F0DDAF', text: '#8A5D0B', accent: '#E3A22B' },
+  LOW: { background: '#EAF6EF', border: '#BFE0CC', text: '#1F6B42', accent: '#3EA46B' },
 };
 
 const statusTones: Record<string, Tone> = {
-  PENDING: { background: '#EEF2F8', border: '#CFDAE9', text: '#42546F' },
-  IN_PROGRESS: { background: '#E6ECFE', border: '#C0CDFA', text: '#22409C' },
-  COMPLETED: { background: '#E9F1E9', border: '#C4DCC4', text: '#2C6134' },
+  PENDING: { background: '#F0F3F9', border: '#D5DEEB', text: '#4B5B74', accent: '#8494AC' },
+  IN_PROGRESS: { background: '#E9EEFE', border: '#C6D2FA', text: '#2743A8', accent: '#3B63E8' },
+  COMPLETED: { background: '#EAF6EF', border: '#BFE0CC', text: '#27613C', accent: '#3EA46B' },
 };
 
 export const priorityTone = (code: string): Tone => priorityTones[code] ?? neutralTone;

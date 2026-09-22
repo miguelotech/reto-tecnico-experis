@@ -13,10 +13,11 @@ type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetail'>;
 type MetaRowProps = {
   label: string;
   value: string;
+  last?: boolean;
 };
 
-const MetaRow = ({ label, value }: MetaRowProps) => (
-  <View style={styles.metaRow}>
+const MetaRow = ({ label, value, last = false }: MetaRowProps) => (
+  <View style={[styles.metaRow, last ? styles.metaRowLast : null]}>
     <Text style={styles.metaLabel}>{label}</Text>
     <Text style={styles.metaValue}>{value}</Text>
   </View>
@@ -74,7 +75,7 @@ export const TaskDetailScreen = ({ route }: Props) => {
           <MetaRow label="Prioridad" value={task.priority.name} />
           <MetaRow label="Estado" value={task.status.name} />
           <MetaRow label="Creada" value={createdAt ?? 'Sin registro'} />
-          <MetaRow label="Vence" value={dueDate ?? 'Sin fecha de vencimiento'} />
+          <MetaRow label="Vence" value={dueDate ?? 'Sin fecha de vencimiento'} last />
         </View>
       </ScrollView>
     </Screen>
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     ...typography.title,
     color: colors.textPrimary,
     marginTop: spacing.md,
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xl,
   },
   card: {
     backgroundColor: colors.surface,
@@ -125,7 +126,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     gap: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  metaRowLast: {
+    borderBottomWidth: 0,
+    paddingBottom: 0,
   },
   metaLabel: {
     ...typography.caption,

@@ -24,13 +24,15 @@ export const Chip = ({
   const toneStyle = tone
     ? { backgroundColor: tone.background, borderColor: tone.border }
     : selected
-    ? { backgroundColor: colors.primarySoft, borderColor: colors.primary }
+    ? { backgroundColor: colors.primary, borderColor: colors.primary }
     : { backgroundColor: colors.surface, borderColor: colors.border };
 
-  const labelColor = tone ? tone.text : selected ? colors.primaryDark : colors.textSecondary;
+  const labelColor = tone ? tone.text : selected ? colors.onPrimary : colors.textSecondary;
 
   const content = (
     <View style={[styles.chip, toneStyle]}>
+      {tone ? <View style={[styles.dot, { backgroundColor: tone.accent }]} /> : null}
+      {selected && !tone ? <Text style={styles.check}>✓</Text> : null}
       <Text style={[styles.label, { color: labelColor }]} numberOfLines={1}>
         {label}
       </Text>
@@ -69,17 +71,28 @@ const styles = StyleSheet.create({
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
-    minHeight: 36,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.md,
+    minHeight: 40,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md + 2,
     borderRadius: radius.pill,
     borderWidth: 1,
   },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: radius.pill,
+    marginRight: spacing.xs + 2,
+  },
+  check: {
+    ...typography.captionStrong,
+    color: colors.onPrimary,
+    marginRight: spacing.xs + 2,
+  },
   label: {
-    ...typography.caption,
+    ...typography.captionStrong,
   },
   remove: {
-    marginLeft: spacing.xs,
+    marginLeft: spacing.xs + 2,
   },
   removeIcon: {
     fontSize: 18,

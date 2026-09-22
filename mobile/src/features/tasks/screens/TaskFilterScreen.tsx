@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { RootStackParamList } from '../../../app/navigation/types';
 import { Button, Chip, ErrorState, Loader, Screen } from '../../../shared/components';
-import { colors, elevation, spacing, typography } from '../../../shared/theme';
+import { colors, elevation, radius, spacing, typography } from '../../../shared/theme';
 import { useCatalogs } from '../hooks/useCatalogs';
 import { CatalogItem, EMPTY_FILTERS, TaskFilters } from '../types/task.types';
 
@@ -20,7 +20,7 @@ type FilterGroupProps = {
 const FilterGroup = ({ title, options, selected, onSelect, testIDPrefix }: FilterGroupProps) => (
   <View style={styles.group}>
     <Text style={styles.groupTitle}>{title}</Text>
-    <View style={styles.options}>
+    <View style={styles.card}>
       <Chip
         testID={`${testIDPrefix}-all`}
         label="Todos"
@@ -117,12 +117,18 @@ const styles = StyleSheet.create({
     ...typography.overline,
     color: colors.textMuted,
     textTransform: 'uppercase',
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm,
   },
-  options: {
+  card: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.sm,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.lg,
+    ...elevation.card,
   },
   actions: {
     flexDirection: 'row',
