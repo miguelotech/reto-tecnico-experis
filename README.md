@@ -88,9 +88,49 @@ npm run ios
 
 **Android**
 
+Requiere Android Studio con *SDK Platform*, *Platform-Tools* y *Emulator*, más JDK 17.
+Estas variables tienen que estar en tu `~/.zshrc`:
+
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
+```
+
+Recarga con `source ~/.zshrc` y comprueba con `adb --version`. Después, con un
+emulador abierto:
+
 ```bash
 npm run android
 ```
+
+### Probar en un teléfono físico
+
+No hay link ni código QR: este proyecto usa React Native **CLI**, no Expo, así que la
+app se instala como binario nativo. Dos ajustes son imprescindibles.
+
+**1. Que la API escuche en la red, no solo en `localhost`:**
+
+```bash
+cd backend
+dotnet run --project src/TaskManager.Adapters.Rest --urls http://0.0.0.0:5080
+```
+
+**2. Que la app apunte a la IP de tu computadora** (averíguala con
+`ipconfig getifaddr en0`) en `mobile/src/config/env.ts`.
+
+Después, en **iOS**: conecta el iPhone por cable, abre
+`mobile/ios/TaskManagerApp.xcworkspace` en Xcode, en *Signing & Capabilities* elige tu
+Apple ID como *Team* y cambia el *Bundle Identifier* a uno único, y ejecuta
+`npm run ios -- --device`. La primera vez hay que confiar en el certificado desde
+*Ajustes › General › VPN y gestión de dispositivos*. Con una cuenta gratuita de Apple
+la firma caduca a los 7 días.
+
+En **Android**: `npm run android` con el teléfono conectado y la depuración USB
+activada, o genera el APK con `cd android && ./gradlew assembleRelease` para
+instalarlo desde el propio teléfono.
+
+El teléfono y la computadora deben estar en la misma red wifi.
 
 ---
 
