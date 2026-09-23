@@ -20,7 +20,7 @@ const task: TaskSummary = {
 
 const createWrapper = () => {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
+    defaultOptions: { queries: { retry: false, gcTime: 0 } },
   });
 
   return ({ children }: PropsWithChildren) => (
@@ -36,7 +36,7 @@ describe('useTasks', () => {
   it('devuelve las tareas cuando el servicio responde', async () => {
     fetchTasksMock.mockResolvedValue([task]);
 
-    const { result } = renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
+    const { result } = await renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data).toEqual([task]);
@@ -46,7 +46,7 @@ describe('useTasks', () => {
     fetchTasksMock.mockResolvedValue([]);
     const filters = { status: 'PENDING', priority: 'HIGH' };
 
-    const { result } = renderHook(() => useTasks(filters), { wrapper: createWrapper() });
+    const { result } = await renderHook(() => useTasks(filters), { wrapper: createWrapper() });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(fetchTasksMock).toHaveBeenCalledWith(filters, expect.anything());
@@ -55,7 +55,7 @@ describe('useTasks', () => {
   it('expone una lista vacia sin tratarla como error', async () => {
     fetchTasksMock.mockResolvedValue([]);
 
-    const { result } = renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
+    const { result } = await renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data).toEqual([]);
@@ -72,7 +72,7 @@ describe('useTasks', () => {
     };
     fetchTasksMock.mockRejectedValue(appError);
 
-    const { result } = renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
+    const { result } = await renderHook(() => useTasks(EMPTY_FILTERS), { wrapper: createWrapper() });
 
     await waitFor(() => expect(result.current.isError).toBe(true));
     expect(result.current.error).toEqual(appError);

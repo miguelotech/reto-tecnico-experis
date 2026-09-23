@@ -24,11 +24,11 @@ const catalogs = {
   refetch: jest.fn(),
 };
 
-const renderScreen = (filters = EMPTY_FILTERS) => {
+const renderScreen = async (filters = EMPTY_FILTERS) => {
   const navigation = { navigate: jest.fn() };
   const route = { params: { filters } };
 
-  render(<TaskFilterScreen navigation={navigation as never} route={route as never} />);
+  await render(<TaskFilterScreen navigation={navigation as never} route={route as never} />);
 
   return navigation;
 };
@@ -38,32 +38,32 @@ describe('TaskFilterScreen', () => {
     useCatalogsMock.mockReturnValue(catalogs);
   });
 
-  it('aplica la combinacion de estado y prioridad seleccionada', () => {
-    const navigation = renderScreen();
+  it('aplica la combinacion de estado y prioridad seleccionada', async () => {
+    const navigation = await renderScreen();
 
-    fireEvent.press(screen.getByTestId('status-PENDING'));
-    fireEvent.press(screen.getByTestId('priority-HIGH'));
-    fireEvent.press(screen.getByTestId('apply-filters-button'));
+    await fireEvent.press(screen.getByTestId('status-PENDING'));
+    await fireEvent.press(screen.getByTestId('priority-HIGH'));
+    await fireEvent.press(screen.getByTestId('apply-filters-button'));
 
     expect(navigation.navigate).toHaveBeenCalledWith('TaskList', {
       filters: { status: 'PENDING', priority: 'HIGH' },
     });
   });
 
-  it('limpia los filtros que llegaron desde el listado', () => {
-    const navigation = renderScreen({ status: 'COMPLETED', priority: 'LOW' });
+  it('limpia los filtros que llegaron desde el listado', async () => {
+    const navigation = await renderScreen({ status: 'COMPLETED', priority: 'LOW' });
 
-    fireEvent.press(screen.getByTestId('clear-filters-button'));
-    fireEvent.press(screen.getByTestId('apply-filters-button'));
+    await fireEvent.press(screen.getByTestId('clear-filters-button'));
+    await fireEvent.press(screen.getByTestId('apply-filters-button'));
 
     expect(navigation.navigate).toHaveBeenCalledWith('TaskList', { filters: EMPTY_FILTERS });
   });
 
-  it('permite volver a "Todos" en un solo criterio sin tocar el otro', () => {
-    const navigation = renderScreen({ status: 'COMPLETED', priority: 'LOW' });
+  it('permite volver a "Todos" en un solo criterio sin tocar el otro', async () => {
+    const navigation = await renderScreen({ status: 'COMPLETED', priority: 'LOW' });
 
-    fireEvent.press(screen.getByTestId('status-all'));
-    fireEvent.press(screen.getByTestId('apply-filters-button'));
+    await fireEvent.press(screen.getByTestId('status-all'));
+    await fireEvent.press(screen.getByTestId('apply-filters-button'));
 
     expect(navigation.navigate).toHaveBeenCalledWith('TaskList', {
       filters: { status: null, priority: 'LOW' },

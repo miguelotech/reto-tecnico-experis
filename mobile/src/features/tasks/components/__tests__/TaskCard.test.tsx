@@ -12,8 +12,8 @@ const task: TaskSummary = {
 };
 
 describe('TaskCard', () => {
-  it('muestra el titulo, la descripcion y los badges de prioridad y estado', () => {
-    render(<TaskCard task={task} onPress={jest.fn()} />);
+  it('muestra el titulo, la descripcion y los badges de prioridad y estado', async () => {
+    await render(<TaskCard task={task} onPress={jest.fn()} />);
 
     expect(screen.getByText('Renovar el pasaporte')).toBeTruthy();
     expect(screen.getByText('La cita en migraciones se agenda en linea')).toBeTruthy();
@@ -21,17 +21,17 @@ describe('TaskCard', () => {
     expect(screen.getByText('Pendiente')).toBeTruthy();
   });
 
-  it('usa un texto placeholder cuando la tarea no tiene descripcion', () => {
-    render(<TaskCard task={{ ...task, description: null }} onPress={jest.fn()} />);
+  it('usa un texto placeholder cuando la tarea no tiene descripcion', async () => {
+    await render(<TaskCard task={{ ...task, description: null }} onPress={jest.fn()} />);
 
     expect(screen.getByText('Sin descripción')).toBeTruthy();
   });
 
-  it('entrega la tarea completa al presionarse', () => {
+  it('entrega la tarea completa al presionarse', async () => {
     const onPress = jest.fn();
-    render(<TaskCard task={task} onPress={onPress} />);
+    await render(<TaskCard task={task} onPress={onPress} />);
 
-    fireEvent.press(screen.getByTestId(`task-card-${task.id}`));
+    await fireEvent.press(screen.getByTestId(`task-card-${task.id}`));
 
     expect(onPress).toHaveBeenCalledWith(task);
   });
