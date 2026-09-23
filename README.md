@@ -9,6 +9,8 @@ Solo lectura, por diseño.
 | API | .NET 10 (LTS), arquitectura hexagonal |
 | Datos | PostgreSQL 16 en Docker, acceso exclusivo por procedimientos almacenados |
 
+<img src="docs/images/listado.png" alt="Pantalla de listado de tareas" width="320">
+
 > El **porqué** de cada decisión está en [`docs/decisions`](docs/decisions/README.md).
 > El reto valora más el criterio que el código, así que ese es el mejor sitio por donde
 > empezar a leer.
