@@ -17,7 +17,6 @@ public static class DependencyInjection
             context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
         });
 
-        // el orden importa: se evaluan en secuencia hasta que uno maneja la excepcion
         services.AddExceptionHandler<DomainExceptionHandler>();
         services.AddExceptionHandler<RepositoryUnavailableExceptionHandler>();
         services.AddExceptionHandler<UnhandledExceptionHandler>();
